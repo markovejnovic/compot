@@ -85,7 +85,7 @@ lower versions of `python` and cannot help in supporting them.
 You should be able to get up and running by running
 
 ```bash
-pip install compot
+pip install compot-ui
 ```
 
 ## Tests

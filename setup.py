@@ -7,7 +7,7 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / 'README.md').read_text()
 
 setup(
-    name='compot',
+    name='compot-ui',
     version=compot.__VERSION__,
     description='A small, stateless, fully compositional TUI framework.',
     long_description=README,
