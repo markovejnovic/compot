@@ -44,9 +44,9 @@ def __row_measurement_strategy(
             min(sum(c.measurement_strategy(*c.args, **c.kwargs).w \
                     for c in children), offered.w), 1)
     if layout == LayoutSpec.FILL:
-        return Measurement(offered.w, offered.h)
+        return Measurement(offered.w, 1)
 
-    return Measurement(offered.w, offered.h)
+    return Measurement(offered.w, 1)
 
 @ComposableCursed(measurement_strategy=__row_measurement_strategy)
 def _Row(
