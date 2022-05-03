@@ -3,8 +3,8 @@
 import _curses
 
 import time
-from compot import MeasurementSpec, wrapper
-from compot.widgets import ProgressBar, Text
+from compot import LayoutSpec, MeasurementSpec, wrapper
+from compot.widgets import ProgressBar, Text, Row
 
 
 def __demo(stdscr: '_curses._CursesWindow') -> int:
@@ -25,6 +25,11 @@ def __demo(stdscr: '_curses._CursesWindow') -> int:
         ProgressBar(
             total_time / 10,
             measurement=MeasurementSpec.xywh(0, 0, bar_w, 1)
+        ).build().render()
+
+        Row((ProgressBar(total_time / 10), ),
+            measurement=MeasurementSpec.xywh(0, 11, bar_w, 1),
+            layout=LayoutSpec.FILL
         ).build().render()
 
         Text(

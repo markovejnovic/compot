@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from dataclasses import dataclass, field
+from math import floor
 from typing import Dict
 from compot import ColorPairs, LayoutSpec, MeasurementSpec
 from compot.composable import Composable
@@ -34,7 +35,7 @@ class _ProgressBarStyle:
 def _ProgressBar(
     progress,
     *args,
-    measurement: MeasurementSpec,
+    measurement: MeasurementSpec = MeasurementSpec.INJECTED(),
     style: _ProgressBarStyle = _ProgressBarStyle(),
     **kwargs
 ):
@@ -58,7 +59,7 @@ def _ProgressBar(
 
     # Create a partial segment then.
     remaining_progress = (progress - last_threshold) * avail_space
-    partial_size = int(remaining_progress)
+    partial_size = int(floor(remaining_progress))
     rounded = _round_to_eighth(remaining_progress - partial_size)
     partial_segment = Text(
         BLOCK_MAP[1.0] * partial_size + BLOCK_MAP[rounded],

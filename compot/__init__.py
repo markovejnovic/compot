@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Any, Tuple
 from enum import IntEnum
 
-__VERSION__ = '0.2.1'
+__VERSION__ = '0.2.3'
 
 
 @dataclass
@@ -182,7 +182,7 @@ def wrapper(fxn: 'Composable', framerate: float = 60) -> Any:
 
 
 class CompotProgram:
-    def __enter__(self) -> 'CompotProgram':
+    def __init__(self) -> None:
         self.stdscr = curses.initscr()
         curses.noecho()
         curses.cbreak()
@@ -192,11 +192,16 @@ class CompotProgram:
         self.stdscr.timeout(int(1000 / 60))
         Colors.init_curses()
         ColorPairs.init_curses()
-        return self
 
-    def __exit__(self, err_type, err_class, err_obj):
+    def close(self) -> None:
         curses.curs_set(1)
         curses.nocbreak()
         self.stdscr.keypad(False)
         curses.echo()
         curses.endwin()
+
+    def __enter__(self) -> 'CompotProgram':
+        return self
+
+    def __exit__(self, err_type, err_class, err_obj):
+        self.close()

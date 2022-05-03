@@ -14,4 +14,5 @@ from .progressbar import _ProgressBarStyle as ProgressBarStyle
 
 from .column import _Column as Column
 
-from .main_window import _MainWindow as MainWindow
+from .main_window import _MainWindow as MainWindow, \
+    _ObserverMainWindow as ObserverMainWindow
