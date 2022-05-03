@@ -7,6 +7,6 @@ build:
 	python setup.py sdist bdist_wheel
 	twine check dist/*
 
-upload:
+upload: build
 	twine upload dist/compot-ui-${VERSION}.tar.gz \
 		dist/compot_ui-${VERSION}-py3-none-any.whl
