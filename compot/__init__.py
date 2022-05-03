@@ -2,10 +2,10 @@
 
 import curses
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Any, Tuple
 from enum import IntEnum
 
-__VERSION__ = '0.1.0'
+__VERSION__ = '0.2.0'
 
 
 @dataclass
@@ -150,7 +150,7 @@ class StyleSpec:
     color: ColorPairs
 
 
-def wrapper(fxn: 'Composable') -> int:
+def wrapper(fxn: 'Composable', framerate: float = 60) -> Any:
     """This function is a wrapper around curses.wrapper which starts the extra
     features available in this framework. Ensure you use this function instead
     of curses.wrapper.
@@ -162,6 +162,7 @@ def wrapper(fxn: 'Composable') -> int:
     stdscr.keypad(True)
     curses.curs_set(0)
     curses.start_color()
+    stdscr.timeout(int(1000 / 60))
 
     try:
         # Initialize the compots framework settings.
@@ -178,3 +179,24 @@ def wrapper(fxn: 'Composable') -> int:
         curses.endwin()
 
     return ret
+
+
+class CompotProgram:
+    def __enter__(self) -> 'CompotProgram':
+        self.stdscr = curses.initscr()
+        curses.noecho()
+        curses.cbreak()
+        self.stdscr.keypad(True)
+        curses.curs_set(0)
+        curses.start_color()
+        self.stdscr.timeout(int(1000 / 60))
+        Colors.init_curses()
+        ColorPairs.init_curses()
+        return self
+
+    def __exit__(self, err_type, err_class, err_obj):
+        curses.curs_set(1)
+        curses.nocbreak()
+        self.stdscr.keypad(False)
+        curses.echo()
+        curses.endwin()

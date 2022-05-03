@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import curses
 from enum import IntEnum
 
 from typing import Iterable
@@ -43,7 +42,7 @@ def __row_measurement_strategy(
     if layout == LayoutSpec.FIT_CONTENT:
         return Measurement(
             min(sum(c.measurement_strategy(*c.args, **c.kwargs).w \
-                for c in children), offered.w), 1)
+                    for c in children), offered.w), 1)
     if layout == LayoutSpec.FILL:
         return Measurement(offered.w, offered.h)
 
@@ -94,7 +93,6 @@ def _Row(
     children_windows = []
     x_pos = 0
     for child, child_width in zip(children, children_widths):
-
         child_window = child.build(
             measurement=MeasurementSpec.xywh(
                 ms.x + x_pos, measurement.y,
