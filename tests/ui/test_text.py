@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import _curses
+import curses
 from compot import MeasurementSpec, ColorPairs, LayoutSpec, wrapper
 from compot.widgets import Text, TextStyleSpec, TextAlignment
 
@@ -53,6 +54,7 @@ def __demo(stdscr: '_curses._CursesWindow') -> int:
         measurement=MeasurementSpec.xywh(0, 5, 31, 1)
     ).build().render()
 
+    stdscr.timeout(-1)
     stdscr.getkey()
 
     return 0
