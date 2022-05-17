@@ -187,14 +187,7 @@ def ComposableCursed(
                 }
                 new_args = args
 
-                if memo and (mmd := COMPOSABLE_MEMOS.get_memo(
-                    composable.__name__, new_args, new_kwargs)) is not None:
-                    return mmd
-
                 built = composable(*new_args, **new_kwargs)
-                if memo:
-                    COMPOSABLE_MEMOS.put_memo(composable.__name__, new_args,
-                                              new_kwargs, built)
                 return built
 
             composable_t = ComposableT(
