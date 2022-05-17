@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Any, Tuple
 from enum import IntEnum
 
-__VERSION__ = '0.2.3'
+__VERSION__ = '0.2.4'
 
 
 @dataclass
