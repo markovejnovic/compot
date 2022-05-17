@@ -76,7 +76,7 @@ def __text_measurement_strategy(
 
     return Measurement(offered.w, 1)
 
-@ComposableCursed(__text_measurement_strategy)
+@ComposableCursed(__text_measurement_strategy, memo=True)
 def _Text(
     text: str,
     measurement: MeasurementSpec = MeasurementSpec.INJECTED(),
