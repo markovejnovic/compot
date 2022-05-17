@@ -13,7 +13,7 @@ def demo():
         )
     )
     def what_do(i):
-        print(f'{i}', file=open('test.txt', '+a'))
+        pass
 
     inputs.subscribe(on_next=what_do)
 

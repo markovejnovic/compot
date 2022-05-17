@@ -2,6 +2,7 @@
 
 from compot import CompotProgram, MeasurementSpec, wrapper
 import reactivex as rx
+import reactivex.operators as rxops
 import _curses
 
 from compot.composable import ComposableT
@@ -45,7 +46,7 @@ def _MainWindow(child, framerate=60) -> rx.Observable:
     return rx.create(reactive_window)
 
 
-def _ObserverMainWindow(child, data):
+def _ObserverMainWindow(child, data: rx.Observable):
     """The ``ObserverMainWindow`` subscribes to data and renders its children
     based on data changes.
 
@@ -53,7 +54,7 @@ def _ObserverMainWindow(child, data):
 
     .. code-block:: python
 
-       ObserverMainWindow(MyCustomWidget(my_data_to_subscribe_to))
+       ObserverMainWindow(MyCustomWidget, my_data_to_subscribe_to)
 
     Note:
         The ``CompotProgram`` will not be closed until you call
@@ -79,9 +80,11 @@ def _ObserverMainWindow(child, data):
             prog.close()
             raise err
 
-    def close(error = None):
+    def close():
         prog.close()
-        if error is not None:
-            raise error
 
-    data.subscribe(on_next=rerender_window, on_completed=close, on_error=close)
+    def on_err(error):
+        prog.close()
+
+    data.pipe(rxops.sample(1 / 60)).subscribe(
+        rerender_window, on_err, close)

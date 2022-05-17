@@ -188,15 +188,16 @@ class CompotProgram:
         curses.cbreak()
         self.stdscr.keypad(True)
         curses.curs_set(0)
-        curses.start_color()
         self.stdscr.timeout(int(1000 / 60))
+
+        curses.start_color()
         Colors.init_curses()
         ColorPairs.init_curses()
 
     def close(self) -> None:
         curses.curs_set(1)
-        curses.nocbreak()
         self.stdscr.keypad(False)
+        curses.nocbreak()
         curses.echo()
         curses.endwin()
 
