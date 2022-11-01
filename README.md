@@ -1,3 +1,9 @@
+# ⚠️ ARCHIVED ⚠️
+
+This project is archived due to me not having time to develop and/or maintain
+this package. See [textualize](https://www.textualize.io/) for a package that
+implements the very same goals of this project, but better.
+
 # compot
 
 Compot is a simple, compositional framework for building TUIs. It is heavily
